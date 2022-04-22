@@ -1,0 +1,58 @@
+---
+title: "Untitled"
+author: "ManBuXiaoCun"
+date: '2022-04-22'
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(stringi)
+seq1 <- "ATGC-CG-"
+reversed_string <- stri_reverse(seq1)
+reversed_string
+```
+The origial seq is \
+`r seq1`\
+The reverse seq is \
+`r reversed_string`
+
+
+chartr() chartr translates each character in x that is specified in old to the corresponding character specified in new. 
+Ideas from 
+<https://stackoverflow.com/questions/20371854/complement-a-dna-sequence>
+```{r}
+
+# example to show function chartr()
+# code from 
+seq2 <- "ACCTGc-catGC-ATC"
+seq2_complement <- chartr("acgtACGT-", "tgcaTGCA-", seq2)
+seq2
+seq2_complement
+
+library(stringi)
+
+rcseq <- function(nucSeq){
+  return(stri_reverse(chartr("acgtACGTuU-", "tgcaTGCAaA-", nucSeq)))
+  }
+
+cseq <- function(nucSeq){
+  return(chartr("acgtACGTuU-", "tgcaTGCAaA-", nucSeq))
+  }
+
+```
+
+
+Eyeball check if a sequence contains illgal letters
+```{r}
+seqcontains <- function(myseq){
+  result <- unique(strsplit(myseq,"")[[1]])
+  return(result)
+}
+```
+
