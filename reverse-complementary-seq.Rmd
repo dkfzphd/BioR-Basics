@@ -30,7 +30,7 @@ Ideas from
 
 # example to show function chartr()
 # code from 
-seq2 <- "ACCTGc-catGC-ATC"
+seq2 <- "ACCTGc-catGC--ATC"
 seq2_complement <- chartr("acgtACGT-", "tgcaTGCA-", seq2)
 seq2
 seq2_complement
@@ -51,8 +51,13 @@ cseq <- function(nucSeq){
 Eyeball check if a sequence contains illgal letters
 ```{r}
 seqcontains <- function(myseq){
-  result <- unique(strsplit(myseq,"")[[1]])
+  result <- unique(strsplit(myseq,"")[[1]]) # [[1]] indexing is very important here 
   return(result)
 }
+```
+
+gregexpr(pattern ='-',seq2) # change pattern = "change-pattern-here" send back where it is in the sequence/string. Here seq2 is the original sequence/string
+```{r}
+gregexpr(pattern ='-',seq2)
 ```
 
