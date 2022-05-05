@@ -1,0 +1,57 @@
+---
+title: "gggenesPlots"
+author: "ManBuXiaoCun"
+date: '2022-05-05'
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(gggenes)
+```
+
+```{r}
+dummies <- make_alignment_dummies(
+  example_genes,
+  aes(xmin = start, xmax = end, y = molecule, id = gene),
+  on = "genE"
+)
+ggplot(example_genes, aes(xmin = start, xmax = end, 
+                          y = molecule, fill = gene, label = gene)) +
+  geom_gene_arrow(arrowhead_height = unit(3, "mm"), arrowhead_width = unit(1, "mm")) +
+  geom_gene_label() +
+  geom_blank(data = dummies) +
+  facet_wrap(~ molecule, scales = "free", ncol = 1) +
+  scale_fill_brewer(palette = "Set3") +
+  theme_genes()
+```
+
+```{r}
+ggplot(example_genes, aes(xmin = start, xmax = end, y = molecule, fill = gene, 
+                          forward = orientation,label = gene)) +
+  geom_gene_arrow() +
+  geom_gene_label() +
+  facet_wrap(~ molecule, scales = "free", ncol = 1) +
+  scale_fill_brewer(palette = "Set3") +
+  theme_genes()
+```
+
+```{r}
+ggplot(example_genes[11:32,], aes(xmin = start, xmax = end, y = strand, fill = gene, 
+                          forward = orientation,label = gene)) +
+  geom_gene_arrow() +
+  geom_gene_label( )+
+  labs(y=NULL)+
+  facet_wrap(~ molecule, scales = "free", ncol = 1) +
+  scale_fill_brewer(palette = "Set3") +
+  theme_genes()+
+  theme(legend.position = "None")
+  
+```
+
